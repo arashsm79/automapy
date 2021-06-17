@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1133</width>
+    <height>709</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>AutomaPy</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLineEdit" name="browseLineEdit"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="browseButton">
+        <property name="text">
+         <string>Browse</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="processButton">
+        <property name="text">
+         <string>Process</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="nfaTab">
+       <attribute name="title">
+        <string>NFA</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout"/>
+      </widget>
+      <widget class="QWidget" name="dfaTab">
+       <attribute name="title">
+        <string>DFA</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2"/>
+      </widget>
+      <widget class="QWidget" name="minDfaTab">
+       <attribute name="title">
+        <string>Min DFA</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3"/>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLineEdit" name="inputLineEdit"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="checkButton">
+        <property name="text">
+         <string>Check</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="statusLabel">
+        <property name="text">
+         <string>Status</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -262,7 +262,7 @@ if __name__ == "__main__":
     # disable print to stdout: -s
     # read from stdin: -i
     # render graph to output file path: -r
-    # also minime the DFA: -m
+    # also minimize the DFA: -m
 
     input_file_path = ""
     output_file_path = ""
@@ -286,6 +286,15 @@ if __name__ == "__main__":
                         opt_minDFA = True
                     elif c == 'i':
                         opt_stdin = True
+                    elif c == 'h':
+                        print("""
+Options:
+    write to file: -o /out/path
+    disable print to stdout: -s
+    read from stdin: -i
+    render graph to output file path: -r
+    also minimize the DFA: -m
+                        """)
             else:
                 input_file_path = arg
                 break
@@ -303,7 +312,13 @@ if __name__ == "__main__":
         print("Specify where the input comes from")
         exit(1)
 
-    data = json.load(open("input.json"))
+    if len(input_file_path):
+        data = json.load(open(input_file_path))
+    else:
+        data = ""
+        for line in sys.stdin:
+            data += line.rstrip('\n')
+        data = json.loads(data)
 
     transitions = {}
     for currentState, inputLetter, nextStates in data["transitions"]:
@@ -317,13 +332,30 @@ if __name__ == "__main__":
             data["final"]
         )
 
-    #print(nfa.toJson())
-    #nfa.visualize().render("automapy_nfa")
-
     dfa = nfa.toDFA()
-    print(dfa.toJson())
-    dfa.visualize().render("automapy_dfa")
+    if(opt_minDFA):
+        mdfa = dfa.minimize()
 
-    #dfa = dfa.minimize()
-    #print(dfa.toJson())
-    #dfa.visualize().render("automapy_minDfa")
+    if(opt_stdout):
+        print(nfa.toJson())
+        print(dfa.toJson())
+        if(opt_minDFA):
+            print(mdfa.toJson())
+
+    if(opt_render):
+        nfa.visualize().render(output_file_path + "/automapy_nfa")
+        dfa.visualize().render(output_file_path + "/automapy_dfa")
+        if(opt_minDFA):
+            mdfa.visualize().render(output_file_path + "/automapy_minDFA")
+
+    if not len(output_file_path):
+        with open(output_file_path + "/automapy_nfa", 'w') as outfile:
+            outfile.write(nfa.toJson)
+            outfile.close()
+        with open(output_file_path + "/automapy_dfa", 'w') as outfile:
+            outfile.write(nfa.toJson)
+            outfile.close()
+        if(opt_minDFA):
+            with open(output_file_path + "/automapy_minDFA", 'w') as outfile:
+                outfile.write(nfa.toJson)
+                outfile.close()

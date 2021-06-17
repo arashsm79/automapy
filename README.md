@@ -1,4 +1,4 @@
-# AutomaPY
+# AutomaPy
 > GUI and CLI tool for converting NFA to DFA and minizing the DFA
 
 
@@ -54,6 +54,6 @@ The GUI is pretty straight forward and requires no further explanation.
 ![dfa](./screenshots/2.png)
 
 ## See Also
-[DFA](https://en.wikipedia.org/wiki/Deterministic_finite_automaton)
-[NFA](https://en.wikipedia.org/wiki/Nondeterministic_finite_automaton)
-[PySide](https://wiki.qt.io/Qt_for_Python)
+* [DFA](https://en.wikipedia.org/wiki/Deterministic_finite_automaton)
+* [NFA](https://en.wikipedia.org/wiki/Nondeterministic_finite_automaton)
+* [PySide](https://wiki.qt.io/Qt_for_Python)

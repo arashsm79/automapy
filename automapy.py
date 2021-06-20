@@ -123,7 +123,7 @@ class DFA(FA):
             if self.initial in newState:
                 dfa_dict[newState] = 0
                 if not newState.isdisjoint(unminimizedFinalStatesSet):
-                    dfa_finalStates.append(stateCounter)
+                    dfa_finalStates.append(0)
                 continue
             dfa_dict[newState] = stateCounter
             if not newState.isdisjoint(unminimizedFinalStatesSet):
@@ -204,7 +204,7 @@ class NFA(FA):
     def toDFA(self):
         stateCounter = 1
         dfa_transitions = {}
-        #dfa_transitions.setdefault(stateCounter, {})
+        # dfa_transitions.setdefault(stateCounter, {})
         dfa_dict = {}
         dfaInitialStateTuple = tuple(self.epsilonClosure(self.initial))
         q = set()
@@ -213,6 +213,12 @@ class NFA(FA):
         dfa_finalStatesTuples = set()
         dfa_finalStatesTuples.add(dfaInitialStateTuple)
         dfa_finalStates = []
+
+        # if the initial state contains a final state, add intiial state to the final state of the dfa
+        for i in dfaInitialStateTuple:
+            if i in self.final:
+                dfa_finalStates.append(0)
+                break
 
         while len(q) > 0:
             currentStates = q.pop()
@@ -228,8 +234,7 @@ class NFA(FA):
                 for s in nextStatesWithoutClosure:
                     nextStates.update(self.epsilonClosure(s))
 
-
-                #if there are no transitions for this letter, then this state
+                # if there are no transitions for this letter, then this state
                 # must go to the trap state
                 if len(nextStates) == 0:
                     nextStates.add(self.trapState)
@@ -250,7 +255,8 @@ class NFA(FA):
                     stateCounter += 1
                 dfa_transitions.setdefault(dfa_dict[currentStates], {})[w] = dfa_dict[nextStatesTuple]
 
-        return DFA(list(dfa_dict.values()), self.alphabet, dfa_transitions, 0, dfa_finalStates)
+        self.correspondingDFA = DFA(list(dfa_dict.values()), self.alphabet, dfa_transitions, 0, dfa_finalStates)
+        return self.correspondingDFA
 
 
 if __name__ == "__main__":

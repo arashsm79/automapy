@@ -348,14 +348,14 @@ Options:
         if(opt_minDFA):
             mdfa.visualize().render(output_file_path + "/automapy_minDFA")
 
-    if not len(output_file_path):
-        with open(output_file_path + "/automapy_nfa", 'w') as outfile:
-            outfile.write(nfa.toJson)
+    if len(output_file_path):
+        with open(output_file_path + "/automapy_nfa.json", 'w') as outfile:
+            outfile.write(nfa.toJson())
             outfile.close()
-        with open(output_file_path + "/automapy_dfa", 'w') as outfile:
-            outfile.write(nfa.toJson)
+        with open(output_file_path + "/automapy_dfa.json", 'w') as outfile:
+            outfile.write(dfa.toJson())
             outfile.close()
         if(opt_minDFA):
-            with open(output_file_path + "/automapy_minDFA", 'w') as outfile:
-                outfile.write(nfa.toJson)
+            with open(output_file_path + "/automapy_minDFA.json", 'w') as outfile:
+                outfile.write(mdfa.toJson())
                 outfile.close()
